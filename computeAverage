@@ -1,0 +1,23 @@
+double computeAverage(node_t* Team_List)
+{
+        double avg=0;
+        double batting=0;
+        double defense=0;
+        double pitching=0;
+        node_t* head;
+        head=Team_List;
+
+        while(head->next != NULL)
+        {
+                batting += head->player.batting_rating;
+                defense += head->player.defense_rating;
+                pitching += head->player.pitching_rating;
+                head=head->next;
+        }
+
+        batting/=3;
+        defense/=3;
+        pitching /=3;
+        avg=(batting+defense+pitching)/(double)3;
+return avg;
+}
