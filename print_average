@@ -1,0 +1,31 @@
+void print_average(double teamA_average, double teamB_average, double teamC_average)
+{
+        if(teamC_average == teamA_average)
+        {
+                printf("\n\nTeam A and C tied!\n");
+        }
+        else if(teamA_average==teamB_average)
+        {
+                printf("\n\nTeam A and B tied!\n");
+        }
+        else if(teamC_average==teamB_average)
+        {
+                printf("\n\nTeam B and C tied!\n");
+        }
+        else if(teamA_average==teamB_average && teamA_average==teamC_average)
+        {
+                printf("\n\nThere was a three way tie!\n");
+        }
+        else if(teamA_average> teamB_average && teamA_average> teamC_average)
+        {
+                printf("\n\nTeam A won the draft!\n");
+        }
+        else if(teamB_average> teamA_average && teamB_average> teamC_average)
+        {
+                printf("\n\nTeam B won the draft!\n");
+        }
+        else if(teamC_average> teamB_average && teamC_average> teamA_average)
+        {
+                printf("\n\nTeam C won the draft!\n");
+        }
+}
