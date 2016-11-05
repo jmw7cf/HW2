@@ -1,0 +1,33 @@
+node_t* Generate_Draft_List(char* File, int number_of_players)
+{
+        FILE* fptr;
+        if((fptr=fopen(File, "r"))==NULL)
+        {
+                printf("Could not open file.");
+        return NULL;
+        }
+
+        node_t* head=(node_t*)malloc(sizeof(node_t)); //malloc the head of the list
+        head->player.Full_Name=NULL;
+        node_t* start=head; //create utility pointer
+        start->next=NULL; //set the utility pointer->next to null
+        Player playa; //initialize and instance of Player
+        playa.Full_Name=(char*)malloc(sizeof(char)*MAX_NAME); //malloc space for a name
+        int i=0;
+        for(i=0; i<number_of_players; i++)
+        {
+                fscanf(fptr, "%s %d %lf %lf %lf", playa.Full_Name, &playa.player_ID, &playa.batting_rating, &playa.defense_rating, &playa.pitching_rating);
+
+                start= add_node(start, playa); //send the pointer and new playa to add_node; return the head of the pointer
+
+if(feof(fptr)) //if it's the end of the file, return the head of the linked list
+                {
+                head=start;
+                return head;
+                }
+        }
+head=start;
+fclose(fptr);
+free(playa.Full_Name);
+return head;
+}
