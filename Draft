@@ -1,0 +1,281 @@
+void Draft(node_t** head_a, node_t** head_b, node_t** head_c, node_t** draft_list, char* team_a, char* team_b, char* team_c)
+{
+        FILE* teamA; FILE* teamB; FILE* teamC;
+
+
+        if((teamA=fopen(team_a, "r"))==NULL)
+        {
+                printf("\nCould not open Team A\n");
+                return;
+        }
+        if((teamB=fopen(team_b, "r"))==NULL)
+        {
+                printf("\nCould not open Team B\n");
+                return;
+        }
+        if((teamC=fopen(team_c, "r"))==NULL)
+        {
+                printf("\nCould not open Team C\n");
+                return;
+        }
+        node_t* draftptr=(*draft_list); //make utility pointers
+        node_t* temp=NULL;
+        node_t* ptrA=*head_a;
+        node_t* ptrB=*head_b;
+        node_t* ptrC=*head_c;
+        node_t* previous=NULL;
+
+        int ID=0;;
+        int i,j=0;
+while(j<ROUNDS)
+{
+if(!feof(teamA))
+{i=0;
+                draftptr=(*draft_list); //reset the beginning of draftptr
+                fscanf(teamA, "%d", &ID); //scan in the ID value
+
+                if(draftptr->player.player_ID==ID) //if the ID matches the first value in the draft_list
+                {
+                         ptrA->player.Full_Name=(char*)malloc(sizeof(char)*MAX_NAME);
+                         strcpy(ptrA->player.Full_Name, draftptr->player.Full_Name);
+                         ptrA->player.player_ID=draftptr->player.player_ID;
+                         ptrA->player.batting_rating=draftptr->player.batting_rating;
+                         ptrA->player.defense_rating=draftptr->player.defense_rating;
+                         ptrA->player.pitching_rating=draftptr->player.pitching_rating; //copy the value
+
+                        ptrA->next=(void*)malloc(sizeof(node_t)); //malloc space for the next pointer
+                        ptrA=ptrA->next;
+                        ptrA->next=NULL; //set next to null
+
+
+                        temp=draftptr;
+                        (*draft_list)=(*draft_list)->next; //bump the draft pointer in main because we deleted the first value
+                        draftptr=draftptr->next;
+                        free(temp->player.Full_Name); //free the player that we just put into A
+                        free(temp);
+
+                        printf("***TEAM A***\n");
+                        output_draft(head_a, head_b, head_c, *draft_list, ID, 1);
+
+                }
+                else { //if it's not at the beginning of the list
+                          do{
+                                previous=draftptr;
+                                draftptr=draftptr->next;
+                                i++;
+                                if(draftptr->next==NULL) //if another team has drafted a player, we'll reach the end of the list.
+                                {
+                                        draftptr=*draft_list; //reset the draftptr
+                                        fscanf(teamA, "%d", &ID); //scan in the next ID on the list
+                                        i=0; //we'll need to know if the value we scanned in is the first value in the draft pointer. If i still = 0 when we exit the do-while, then we'll know that it was the first item. otherwhise, i !=0, and we won't change the pointer in main.
+                                 }
+
+                        }while(draftptr->player.player_ID != ID); //do while the value of ID is not at the beginning of the list
+
+                        if(draftptr->player.player_ID == ID)
+                        {
+                                ptrA->player.Full_Name=malloc(sizeof(char)*MAX_NAME);
+                                strcpy(ptrA->player.Full_Name, draftptr->player.Full_Name);
+                                ptrA->player.player_ID=draftptr->player.player_ID;
+                                ptrA->player.batting_rating=draftptr->player.batting_rating;
+                                ptrA->player.defense_rating=draftptr->player.defense_rating;
+                                ptrA->player.pitching_rating=draftptr->player.pitching_rating;
+
+                                ptrA->next=(void*)malloc(sizeof(node_t)); //malloc space for the next pointer
+                                ptrA=ptrA->next; //bump
+                                ptrA->next=NULL; //set next to null
+
+                                        if(i==0) //explanation in the do-while statement
+                                        {
+                                                (*draft_list)=(*draft_list)->next;
+                                        }
+                                temp=draftptr;
+                                draftptr=draftptr->next;
+                                previous->next=draftptr;
+                                free(temp->player.Full_Name);
+                                free(temp);
+
+                                printf("***TEAM A***\n");
+                                output_draft(head_a, head_b, head_c, *draft_list, ID, 1);
+                        }
+                }
+        printf("\n");
+}
+        draftptr=(*draft_list);
+
+if(!feof(teamB))
+{ i=0; //reset i counter
+        fscanf(teamB, "%d", &ID);
+                 if(draftptr->player.player_ID==ID)     //if ID matches the first node in the draft list
+                {
+                        ptrB=(node_t*)malloc(sizeof(node_t));
+
+                        ptrB->player.Full_Name=(char*)malloc(sizeof(char)*MAX_NAME);
+                        strcpy(ptrB->player.Full_Name, draftptr->player.Full_Name);
+                        ptrB->player.player_ID=draftptr->player.player_ID;
+                        ptrB->player.batting_rating=draftptr->player.batting_rating;
+                        ptrB->player.defense_rating=draftptr->player.defense_rating;
+                        ptrB->player.pitching_rating=draftptr->player.pitching_rating;
+
+                        ptrB->next=(void*)malloc(sizeof(node_t)); //malloc space for the next pointer
+                        ptrB=ptrB->next; //bump
+                        ptrB->next=NULL; //set next to NULL
+
+
+                        temp=draftptr;
+                        (*draft_list)=(*draft_list)->next;              //move the draft_list in main
+                        draftptr=draftptr->next;
+                        free(temp->player.Full_Name);
+                        free(temp);
+
+                         printf("***TEAM B***\n");
+                        output_draft(head_a, head_b, head_c, *draft_list, ID, 2);
+                }
+                else {
+                       do{
+                                previous=draftptr;
+                                draftptr=draftptr->next;
+                                i++;
+                                if(draftptr->next==NULL)
+                                {
+                                        draftptr=*draft_list;
+                                        fscanf(teamB, "%d", &ID);
+                                        i=0;
+                                }
+                        }while(draftptr->player.player_ID != ID);
+
+                        if(draftptr->player.player_ID == ID)
+                        {
+                                ptrB->next=NULL;
+                                ptrB->player.Full_Name=(char*)malloc(sizeof(char)*MAX_NAME);
+                                strcpy(ptrB->player.Full_Name, draftptr->player.Full_Name);
+                                ptrB->player.player_ID=draftptr->player.player_ID;
+                                ptrB->player.batting_rating=draftptr->player.batting_rating;
+                                ptrB->player.defense_rating=draftptr->player.defense_rating;
+                                ptrB->player.pitching_rating=draftptr->player.pitching_rating;
+
+                                ptrB->next=(void*)malloc(sizeof(node_t)); //malloc space for the next pointer
+                                ptrB=ptrB->next; //bump
+                                ptrB->next=NULL; //set next to null
+
+                                        if(i==0)
+                                        {
+                                                (*draft_list)=(*draft_list)->next;
+                                        }
+                                temp=draftptr;
+                                draftptr=draftptr->next;
+                                previous->next=draftptr;
+                                free(temp->player.Full_Name);
+                                free(temp);
+                                 printf("***TEAM B***\n");
+                                output_draft(head_a, head_b, head_c, *draft_list, ID, 2);
+                        }
+                }
+}
+        draftptr=(*draft_list);
+if(!feof(teamC))
+{ i=0; //reset i counter
+                fscanf(teamC, "%d", &ID);
+                 if(draftptr->player.player_ID==ID)
+                {
+                        ptrC->next=NULL;
+                         ptrC->player.Full_Name=(char*)malloc(sizeof(char)*MAX_NAME);
+                        strcpy(ptrC->player.Full_Name, draftptr->player.Full_Name);
+                        ptrC->player.player_ID=draftptr->player.player_ID;
+                        ptrC->player.batting_rating=draftptr->player.batting_rating;
+                        ptrC->player.defense_rating=draftptr->player.defense_rating;
+                        ptrC->player.pitching_rating=draftptr->player.pitching_rating;
+
+                        ptrC->next=(void*)malloc(sizeof(node_t)); //malloc space for the next pointer
+                        ptrC=ptrC->next; //bump
+                        ptrC->next=NULL; //set next to null
+
+                        temp=draftptr;
+                        (*draft_list)=(*draft_list)->next;
+                        draftptr=draftptr->next;
+                        free(temp->player.Full_Name);
+                        free(temp);
+
+                        printf("***TEAM C***\n");
+                        output_draft(head_a, head_b, head_c, *draft_list,  ID, 3);
+
+                }
+                else{
+                        do{
+                                previous=draftptr;
+                                draftptr=draftptr->next;
+                                i++;
+                                if(draftptr->next==NULL)
+                                {
+                                        draftptr=*draft_list;
+                                        fscanf(teamC, "%d", &ID);
+                                        i=0;
+                                }
+
+                        }while(draftptr->player.player_ID != ID);
+
+                        if(draftptr->player.player_ID == ID)
+                        {
+                                ptrC->next=NULL;
+                                ptrC->player.Full_Name=(char*)malloc(sizeof(char)*MAX_NAME);
+                                strcpy(ptrC->player.Full_Name, draftptr->player.Full_Name);
+                                ptrC->player.player_ID=draftptr->player.player_ID;
+                                ptrC->player.batting_rating=draftptr->player.batting_rating;
+                                ptrC->player.defense_rating=draftptr->player.defense_rating;
+                                ptrC->player.pitching_rating=draftptr->player.pitching_rating;
+
+                        ptrC->next=(void*)malloc(sizeof(node_t)); //malloc space for the next pointer
+                        ptrC=ptrC->next; //bump
+                        ptrC->next=NULL; //set next to null
+
+                                temp=draftptr;
+                                        if(i==0)
+                                        {
+                                                (*draft_list)=(*draft_list)->next;
+                                        }
+                                draftptr=draftptr->next;
+                                previous->next=draftptr;
+                                free(temp->player.Full_Name);
+                                free(temp);
+
+                                printf("***TEAM C***\n");
+                                output_draft(head_a, head_b, head_c, *draft_list, ID, 3);
+                        }
+                }
+}//end if(!feof(teamC);
+j++;
+}//end while
+while(ptrA->next != NULL)
+{
+        ptrA=ptrA->next;
+}
+        if(ptrA->next == NULL)
+        {
+                temp=ptrA->next;
+                free(temp);
+        }
+while(ptrB->next != NULL)
+{
+        ptrB=ptrB->next;
+}
+
+        if(ptrB->next==NULL)
+        {
+                temp=ptrB->next;
+                free(temp);
+        }
+
+while(ptrC->next != NULL)
+{
+        ptrC=ptrC->next;
+}
+        if(ptrC->next==NULL)
+        {
+                temp=ptrC->next;
+                free(temp);
+        }
+fclose(teamA);
+fclose(teamB);
+fclose(teamC);
+return;
+}//end Draft
