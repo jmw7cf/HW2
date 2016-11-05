@@ -1,6 +1,6 @@
 # HW2
 
-command line argument: (./a.out <size of player list> <"playerlist.txt"<"listA.txt"> <"listB.txt"> <"listC.txt"> <"Draft_Order.txt">
+Command line argument: <./a.out <size of player list> <"playerlist.txt"<"listA.txt"> <"listB.txt"> <"listC.txt"> <"Draft_Order.txt">
 
 Program reads a draft list of players into a linked list. It then runs a draft in a round robin format with 3 rounds. 
 
