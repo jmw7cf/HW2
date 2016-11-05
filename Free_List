@@ -1,0 +1,13 @@
+void Free_List(node_t* linked_list)
+{
+        node_t* temp=NULL;
+
+        while(linked_list!= NULL)
+        {
+                temp=linked_list;
+                linked_list=linked_list->next;
+                free(temp->player.Full_Name);
+                free(temp);
+        }
+return;
+}
