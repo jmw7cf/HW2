@@ -1,0 +1,9 @@
+void test_output(node_t* head)
+{
+        while(head->next != NULL)
+        {
+                printf("PLAYER ID: %.d\nName: %s batting: %.2lf defense: %.2lf pitching: %.2lf\n\n", head->player.player_ID, head->player.Full_Name, head->player.batting_rating, head->player.defense_rating, head->player.pitching_rating);
+        head=head->next;
+       }
+
+}
