@@ -1,0 +1,97 @@
+void output_draft(node_t** head_a, node_t** head_b, node_t** head_c, node_t* list, int ID, int team)
+{
+        node_t* tA=*head_a;
+        node_t* tB=*head_b;
+        node_t* tC=*head_c;
+        switch(team){
+                case 1:
+                {
+                        printf("Drafts ID %d -> Team A: [%d]\n", ID, ID);
+                        while(tA->next!=NULL)
+                        {
+                                printf("%.d   ", tA->player.player_ID);
+                                tA=tA->next;
+                        }
+                        printf("\n");
+                        while(tB->next!=NULL)
+                        {
+                                printf("%.d   ", tB->player.player_ID);
+                                tB=tB->next;
+                        }
+                        printf("\n");
+                          while(tC->next!=NULL)
+                        {
+                                printf("%.d   ", tC->player.player_ID);
+                                tC=tC->next;
+                        }
+
+                        printf("\n");
+                //      while(list != NULL)
+                //      {
+                //              printf("%.d   ", list->player.player_ID);
+                //              list=list->next;
+                //      }
+                break;
+                }
+                case 2:
+                {
+                          printf("Drafts ID %d -> Team B: [%d]\n", ID, ID);
+                           while(tA->next!=NULL)
+                        {
+                                printf("%.d   ", tA->player.player_ID);
+                                tA=tA->next;
+                        }
+                        printf("\n");
+                        while(tB->next !=NULL)
+                        {
+                                printf("%.d   ", tB->player.player_ID);
+                                tB=tB->next;
+                        }
+                        printf("\n");
+                          while(tC->next !=NULL)
+                        {
+                                printf("%.d   ", tC->player.player_ID);
+                                tC=tC->next;
+                        }
+
+                          printf("\n");
+                       //  while(list != NULL)
+                       //  {
+                       //         printf("%.d   ", list->player.player_ID);
+                       //         list=list->next;
+                       //  }
+                break;
+                }
+                case 3:
+                {
+                          printf("Drafts ID %d -> Team C: [%d]\n", ID, ID);
+                         while(tA->next!=NULL)
+                        {
+                                printf("%.d   ", tA->player.player_ID);
+                                tA=tA->next;
+                        }
+                        printf("\n");
+                        while(tB->next !=NULL)
+                        {
+                                printf("%.d   ", tB->player.player_ID);
+                                tB=tB->next;
+                        }
+                        printf("\n");
+                          while(tC->next !=NULL)
+                        {
+                                printf("%.d   ", tC->player.player_ID);
+                                tC=tC->next;
+                        }
+
+                        printf("\n");
+                      //  while(list != NULL)
+                      //  {
+                      //          printf("%.d   ", list->player.player_ID);
+                      //          list=list->next;
+                      //  }
+                break;
+                }
+                }
+return;
+}
+
